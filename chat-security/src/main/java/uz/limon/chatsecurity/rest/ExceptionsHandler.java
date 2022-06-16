@@ -18,7 +18,7 @@ public class ExceptionsHandler {
     public ResponseEntity<List<ValidatorDTO>> handle(MethodArgumentNotValidException e, WebRequest request) {
         List<ValidatorDTO> errors = e.getBindingResult().getFieldErrors().stream()
                 .map(ee -> ValidatorDTO.builder()
-                            .fieldName(ee.getField())
+                        .fieldName(ee.getField())
                         .error(ee.getDefaultMessage())
                         .build())
                 .collect(Collectors.toList());

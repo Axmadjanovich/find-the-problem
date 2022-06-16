@@ -1,14 +1,12 @@
 package uz.limon.chatsecurity.helper;
 
 import com.google.gson.Gson;
-import org.springframework.boot.json.GsonJsonParser;
 
 import java.util.Random;
 
 public class StringHelper {
 
     private static final Random random = new Random();
-    private static final GsonJsonParser parser = new GsonJsonParser();
     private static final Gson gson = new Gson();
 
     public static boolean isValidPassword(String s){

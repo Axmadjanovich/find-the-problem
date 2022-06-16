@@ -3,9 +3,13 @@ package uz.limon.chatsecurity.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import uz.limon.chatsecurity.helper.AppMessages;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+
+import static uz.limon.chatsecurity.helper.AppMessages.EMPTY_FIELD;
+import static uz.limon.chatsecurity.helper.AppMessages.MISMATCH;
 
 @Data
 @NoArgsConstructor
@@ -13,28 +17,25 @@ import java.math.BigDecimal;
 public class UserDTO {
 
     protected Integer id;
-    @NotBlank(message = "Ism bo'sh bo'lmasligi kerak")
-    @Max(value = 3, message = "Eng kamida 3 ta belgi bo'lishligi kerak")
+    @NotBlank(message = EMPTY_FIELD)
+    @Min(value = 3, message = "At least must be 3 characters")
     protected String firstName;
-    @NotBlank(message = "Familiya bo'sh bo'lmasligi kerak")
-    @Max(value = 3, message = "Eng kamida 3 ta belgi bo'lishligi kerak")
+    @NotBlank(message = EMPTY_FIELD)
+    @Min(value = 3, message = "At least must be 3 characters")
     protected String lastName;
-    @NotBlank(message = "Tel. raqam bo'sh bo'lmasligi kerak")
-    @Pattern(regexp = "/^([+]?\\d{3}[-\\s]?|)\\d{2}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2}$/", message = "Tel. raqam mos kelmadi")
+    @NotBlank(message = EMPTY_FIELD)
+    @Pattern(regexp = "/^([+]?\\d{3}[-\\s]?|)\\d{2}[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2}$/", message = MISMATCH)
     protected String phoneNumber;
-    @Digits(integer = 10, fraction = 2)
-    protected BigDecimal account;
-    @NotBlank(message = "Username bo'sh bo'lmasligi kerak")
+    @NotBlank(message = EMPTY_FIELD)
     protected String username;
-    @NotBlank(message = "Password bo'sh bo'lmasligi kerak")
+    @NotBlank(message = EMPTY_FIELD)
     protected String password;
 
-    public UserDTO(Integer id, String firstName, String lastName, String phoneNumber, BigDecimal account, String username) {
+    public UserDTO(Integer id, String firstName, String lastName, String phoneNumber, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.account = account;
         this.username = username;
     }
 }

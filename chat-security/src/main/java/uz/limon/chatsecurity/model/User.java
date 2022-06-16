@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,17 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Authorities> authorities;
+
+    @ManyToMany(mappedBy = "users")
+//    @JoinTable(name = "users_chats",
+//            inverseJoinColumns = {
+//            @JoinColumn(referencedColumnName = "chats_id")
+//            },
+//            joinColumns = {
+//            @JoinColumn
+//            (referencedColumnName = "users_id")})
+    private List<Chat> chats;
+
 
     public User(Integer id, String firstName, String lastName, String phoneNumber, BigDecimal account, String password, String username) {
         this.id = id;

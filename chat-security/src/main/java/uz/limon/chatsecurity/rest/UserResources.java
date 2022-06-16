@@ -21,7 +21,7 @@ public class UserResources {
         return new ResponseDTO<>(true, 0, "OK", "OK");
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseDTO<?> register(@RequestBody @Valid UserDTO userDTO){
         return userService.addUser(userDTO);
     }
