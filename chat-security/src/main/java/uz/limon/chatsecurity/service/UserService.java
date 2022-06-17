@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import uz.limon.chatsecurity.dto.ResponseDTO;
 import uz.limon.chatsecurity.dto.UserDTO;
 import uz.limon.chatsecurity.dto.ValidatorDTO;
+import uz.limon.chatsecurity.dto.custom.UserCustomDTO;
 import uz.limon.chatsecurity.helper.AppCode;
 import uz.limon.chatsecurity.helper.AppMessages;
 import uz.limon.chatsecurity.helper.StringHelper;
 import uz.limon.chatsecurity.mapper.UserMapper;
+import uz.limon.chatsecurity.mapper.custom.UserCustomMapper;
 import uz.limon.chatsecurity.model.Authorities;
+import uz.limon.chatsecurity.model.Chat;
 import uz.limon.chatsecurity.model.User;
 import uz.limon.chatsecurity.redis.UserSession;
 import uz.limon.chatsecurity.redis.UserSessionRedisRepository;
 import uz.limon.chatsecurity.repository.AuthorityRepository;
+import uz.limon.chatsecurity.repository.ChatRepository;
 import uz.limon.chatsecurity.repository.UserRepository;
 import uz.limon.chatsecurity.security.jwt.JwtUtil;
 
@@ -26,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static uz.limon.chatsecurity.helper.AppCode.*;
 import static uz.limon.chatsecurity.helper.AppCode.OK;
@@ -43,6 +48,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserSessionRedisRepository userSessionRedisRepository;
     private final JwtUtil jwtUtil;
+    private final ChatRepository chatRepository;
+    private final UserCustomMapper userCustomMapper;
 
     public ResponseDTO<?> addUser(UserDTO userDTO) {
         List<ValidatorDTO> errors = validator.validateUser(userDTO);
@@ -71,7 +78,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return new ResponseDTO<>(true, OK, SAVED, userMapper.toDTO(user));
+        return new ResponseDTO<>(true, OK, SAVED, user.getId());
     }
 
     public ResponseDTO<String> generateJWT(UserDTO userDTO, HttpServletRequest request) {
@@ -105,5 +112,15 @@ public class UserService {
 
     private String sysGuid(){
         return UUID.randomUUID().toString().toUpperCase().replace("-","");
+    }
+
+    public ResponseDTO<UserDTO> getById(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()){
+            return new ResponseDTO<>(false, AppCode.NOT_FOUND, AppMessages.NOT_FOUND, null);
+        }
+        UserCustomDTO userDTO = userCustomMapper.toDto(user.get());
+
+        return new ResponseDTO<>(true, OK, AppMessages.OK, userDTO);
     }
 }

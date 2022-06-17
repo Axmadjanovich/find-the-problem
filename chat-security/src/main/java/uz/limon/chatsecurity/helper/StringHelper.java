@@ -1,6 +1,7 @@
 package uz.limon.chatsecurity.helper;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 import java.util.Random;
 
@@ -43,5 +44,13 @@ public class StringHelper {
 
     public static String toJson(Object s){
         return gson.toJson(s);
+    }
+
+    public static Integer parseToInt(String s){
+        try {
+            return Integer.parseInt(s);
+        }catch (Exception e){
+            return -1;
+        }
     }
 }

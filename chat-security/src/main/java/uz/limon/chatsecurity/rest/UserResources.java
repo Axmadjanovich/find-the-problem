@@ -1,5 +1,7 @@
 package uz.limon.chatsecurity.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import uz.limon.chatsecurity.dto.ResponseDTO;
@@ -16,19 +18,20 @@ public class UserResources {
 
     private final UserService userService;
 
-    @GetMapping("/check")
-    public ResponseDTO<String> get(){
-        return new ResponseDTO<>(true, 0, "OK", "OK");
-    }
-
+    @ApiOperation(value = "Registration of user")
     @PostMapping("/add")
     public ResponseDTO<?> register(@RequestBody @Valid UserDTO userDTO){
         return userService.addUser(userDTO);
     }
 
-    @GetMapping("/token")
+    @ApiOperation(value = "Get token with username and password. Token expires in 3 hours")
+    @PostMapping("/token")
     public ResponseDTO<String> jwt(@RequestBody UserDTO userDTO, HttpServletRequest request){
         return userService.generateJWT(userDTO, request);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseDTO<UserDTO> getUserById(@PathVariable Integer userId){
+        return userService.getById(userId);
+    }
 }

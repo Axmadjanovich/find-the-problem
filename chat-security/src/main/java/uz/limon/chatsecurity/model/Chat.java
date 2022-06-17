@@ -23,13 +23,16 @@ public class Chat {
     @Column(name = "created_at")
     private Date createdAt;
 
+    @Column(name = "author_id")
+    private Integer authorId;
+
     @ManyToMany
-//    @JoinTable(name = "users_chats",
-//            inverseJoinColumns = {
-//                    @JoinColumn(referencedColumnName = "users_id")
-//            },
-//            joinColumns = {
-//                    @JoinColumn
-//                            (referencedColumnName = "chats_id")})
+    @JoinTable(name = "chat_users",
+            inverseJoinColumns = {
+                    @JoinColumn(name = "users_id")
+            },
+            joinColumns = {
+                    @JoinColumn
+                            (name = "chats_id")})
     private List<User> users;
 }

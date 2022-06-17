@@ -32,8 +32,6 @@ public class User implements UserDetails {
     private String lastName;
     @Column(name = "phonenumber")
     private String phoneNumber;
-    @Column(name = "account")
-    private BigDecimal account;
     @Column(name = "password")
     private String password;
     @Column(name = "salt")
@@ -45,22 +43,13 @@ public class User implements UserDetails {
     private Set<Authorities> authorities;
 
     @ManyToMany(mappedBy = "users")
-//    @JoinTable(name = "users_chats",
-//            inverseJoinColumns = {
-//            @JoinColumn(referencedColumnName = "chats_id")
-//            },
-//            joinColumns = {
-//            @JoinColumn
-//            (referencedColumnName = "users_id")})
-    private List<Chat> chats;
+    private transient List<Chat> chats;
 
-
-    public User(Integer id, String firstName, String lastName, String phoneNumber, BigDecimal account, String password, String username) {
+    public User(Integer id, String firstName, String lastName, String phoneNumber, String password, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.account = account;
         this.password = password;
         this.username = username;
     }

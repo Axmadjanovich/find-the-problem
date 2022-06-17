@@ -11,6 +11,10 @@ import javax.persistence.*;
 public class ChatUsers {
 
     @Id
+    @SequenceGenerator(name = "chat_users_seq", sequenceName = "chat_users_seq", allocationSize = 1)
+    @GeneratedValue(generator = "chat_users_seq")
+    private Integer id;
+
     @Column(name = "chats_id")
     private Integer chatId;
 

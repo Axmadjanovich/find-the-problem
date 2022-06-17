@@ -23,7 +23,18 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/token").permitAll()
-//                .antMatchers(HttpMethod.POST,"/user**").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/**").permitAll()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/v2/api-docs",           // swagger
+                        "/webjars/**",            // swagger-ui webjars
+                        "/swagger-resources/**",  // swagger-ui resources
+                        "/configuration/**",      // swagger configuration
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html"
+                ).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

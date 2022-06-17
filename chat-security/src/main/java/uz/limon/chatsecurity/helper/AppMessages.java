@@ -9,4 +9,5 @@ public class AppMessages {
     public static final String MISMATCH = "Data does not match";
     public static final String OK = "OK";
     public static final String EMPTY_FIELD = "Field must not be empty";
+    public static final String INCORRECT_TYPE = "Incorrect type";
 }
