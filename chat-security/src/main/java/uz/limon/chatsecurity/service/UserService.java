@@ -72,7 +72,7 @@ public class UserService {
 
         String salt = StringHelper.generateSalt();
         User user = userMapper.toEntity(userDTO);
-        user.setPassword(passwordEncoder.encode(salt + user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword() + salt));
         user.setAuthorities(authorities);
         user.setSalt(salt);
 

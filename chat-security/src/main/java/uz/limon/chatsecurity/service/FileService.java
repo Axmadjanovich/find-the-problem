@@ -22,7 +22,6 @@ public class FileService {
         bis.close();
 
         File uploadFile = new File(filePath());
-        if (!uploadFile.exists()) uploadFile.mkdirs();
 
         File outputFile = new File(uploadFile.getPath() + "/" + fileName(ext));
         ImageIO.write(image, ext, outputFile);

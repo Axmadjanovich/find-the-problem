@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class ExceptionsHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<ValidatorDTO>> handle(MethodArgumentNotValidException e, WebRequest request) {
+    public ResponseEntity<List<ValidatorDTO>> handle(MethodArgumentNotValidException e) {
         List<ValidatorDTO> errors = e.getBindingResult().getFieldErrors().stream()
                 .map(ee -> ValidatorDTO.builder()
                         .fieldName(ee.getField())
@@ -30,8 +30,8 @@ public class ExceptionsHandler {
     }
     
     @ExceptionHandler(IOException.class)
-    public ResponseEntity<String> handleIO(IOException e){
-        return ResponseEntity.status(500).body("Error while reading/saving file " + e.getMessage());
+    public void handleIO(IOException e){
+        ResponseEntity.status(500).body("Error while reading/saving file " + e.getMessage());
     }
 
     @ExceptionHandler(ImageNotFoundException.class)

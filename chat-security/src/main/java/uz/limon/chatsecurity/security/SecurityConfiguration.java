@@ -20,7 +20,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/token").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/**").permitAll()
@@ -31,9 +30,7 @@ public class SecurityConfiguration {
                         "/webjars/**",            // swagger-ui webjars
                         "/swagger-resources/**",  // swagger-ui resources
                         "/configuration/**",      // swagger configuration
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html"
+                        "/*.html"
                 ).permitAll()
                 .anyRequest()
                 .authenticated()

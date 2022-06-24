@@ -11,7 +11,7 @@ import uz.limon.chatsecurity.service.ChatService;
 
 import java.util.List;
 
-@RestController
+@ResponseStatus
 @RequestMapping("chats")
 @RequiredArgsConstructor
 public class ChatResource {

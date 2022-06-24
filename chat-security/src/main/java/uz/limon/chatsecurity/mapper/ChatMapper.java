@@ -6,7 +6,7 @@ import uz.limon.chatsecurity.dto.ChatDTO;
 import uz.limon.chatsecurity.dto.custom.ChatCustomDTO;
 import uz.limon.chatsecurity.model.Chat;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "server")
 public interface ChatMapper {
 
     @Mapping(target = "createdAt", source = "createdAt", dateFormat = "yyyy-MM-dd HH:mm:ss")

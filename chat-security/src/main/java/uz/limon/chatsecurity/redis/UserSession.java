@@ -8,7 +8,6 @@ import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Id;
 
-@RedisHash(value = "userSession", timeToLive = 60 * 60 * 10)  // 10 hours
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -46,7 +46,7 @@ public class UserDTO {
     protected String username;
 
     @ApiModelProperty(notes = "Password of the user. " +
-            "Note that password must contains at least 1 upper, 1 lower and 1 numeric character")
+            "Note that password must contains at least 1 upper, 1 lower and 1 numeric character", required = true)
     @NotBlank(message = EMPTY_FIELD)
     protected String password;
 

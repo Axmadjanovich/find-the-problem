@@ -1,5 +1,6 @@
 package uz.limon.chatsecurity.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -52,8 +53,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .securitySchemes(apiKey())
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.ant("paths/**"))
                 .build();
 
     }

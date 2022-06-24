@@ -43,7 +43,7 @@ public class User implements UserDetails {
     private Set<Authorities> authorities;
 
     @ManyToMany(mappedBy = "users")
-    private transient List<Chat> chats;
+    private List<Chat> chats;
 
     public User(Integer id, String firstName, String lastName, String phoneNumber, String password, String username) {
         this.id = id;

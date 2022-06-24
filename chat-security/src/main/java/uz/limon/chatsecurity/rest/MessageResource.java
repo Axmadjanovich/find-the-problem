@@ -3,6 +3,7 @@ package uz.limon.chatsecurity.rest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import uz.limon.chatsecurity.dto.MessageDTO;
@@ -31,6 +32,11 @@ public class MessageResource {
     @GetMapping("/by-chat/{chatId}")
     public ResponseDTO<List<MessageCustomDTO>> getAll(@PathVariable Integer chatId){
         return messageService.getMessagesByChatId(chatId);
+    }
+
+    @GetMapping("/by-chat/{userId}")
+    public ResponseEntity<String> user(@PathVariable String userId){
+        return ResponseEntity.ok(userId);
     }
 
     @GetMapping("/image")
